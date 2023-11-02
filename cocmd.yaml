@@ -5,30 +5,30 @@ automations:
       description: "onboarding for project https://github.com/JKHeadley/appy"
       env: osx
       steps:
-        # - title: install git
-        #   runner: cocmd
-        #   content: git.setup
-        # - title: install node
-        #   runner: cocmd
-        #   content: node.setup
-        # - title: install docker
-        #   runner: cocmd
-        #   content: docker.setup
-        # - title: clone project
-        #   runner: shell
-        #   content: |
-        #     mkdir -p ~/workspace
-        #     cd  ~/workspace
-        #     # check it doesn't exist
-        #     if [ -d appy ]; then
-        #       echo "appy project already exists"
-        #     else
-        #       echo "appy doesn't exist"
-        #       git clone git@github.com:JKHeadley/appy.git
-        #     fi
-        # - title: start docker
-        #   runner: cocmd
-        #   content: docker.start
+        - title: install git
+          runner: cocmd
+          content: git.setup
+        - title: install node
+          runner: cocmd
+          content: node.setup
+        - title: install docker
+          runner: cocmd
+          content: docker.setup
+        - title: clone project
+          runner: shell
+          content: |
+            mkdir -p ~/workspace
+            cd  ~/workspace
+            # check it doesn't exist
+            if [ -d appy ]; then
+              echo "appy project already exists"
+            else
+              echo "appy doesn't exist"
+              git clone git@github.com:JKHeadley/appy.git
+            fi
+        - title: start docker
+          runner: cocmd
+          content: docker.start
 
         - title: edit the env file
           runner: shell
@@ -58,9 +58,9 @@ automations:
             cd ~/workspace/appy
             source ./backend/.env-docker
             export SERVER_PORT=${SERVER_PORT}
-            docker-compose up --build
+            docker-compose up --build -d
         
-        - title: open frontend
+        - title: open swagger
           runner: link
-          content: http://localhost:3000
+          content: http://localhost:8080
         
